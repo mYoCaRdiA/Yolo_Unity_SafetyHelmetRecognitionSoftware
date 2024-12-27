@@ -17,8 +17,10 @@
 ### 简介
 
 本项目基于Unity官方最新的 AI 模型本地推理引擎 "Sentis" ，完成对Yolo识别模型的本地推理，并输出推理结果显示识别框。项目内预留接口支持替换自己训练的识别任意物体的onnx模型，包括YoloV8和V5模型。需要注意的是，项目默认使用的是YoloV8模型，使用V5模型需替换推理引擎为Sentis的旧版本：Barracuda引擎。项目支持移植web端、安卓端和iOS端。
-
-
+<p align="center">
+<img src="Images/1.jpg" alt="Logo" width="750" height="400" >
+<img src="Images/2.png" alt="Logo" width="1500" height="800">
+<img src="Images/3.jpg" alt="Logo" width="1500" height="800">
 ###### 配置要求
 
 1. Unity 2021.3.15f1 (使用c1版可能导致TextureProvider脚本内存泄漏);

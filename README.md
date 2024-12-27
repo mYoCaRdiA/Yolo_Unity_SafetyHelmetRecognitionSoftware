@@ -128,7 +128,20 @@ Main: The Yolo inference core code
 
 ### Screenshotoftheproject
 The training results of the safety helmet recognition model are shown below (using the open source safety helmet training set and validation set).
-
+<br />
+<br />
+<h3 align="center">Model parameters</h3>
+<p align="center">
+<img src="Images/2.png" alt="Model parameters" width="750" height="500">
+<br />
+<h3 align="center">Validation set identification results</h3>
+<p align="center">
+<img src="Images/3.jpg" alt="Validation set identification results" width="750" height="500">
+<br />
+<h3 align="center">Unity Recognition Effect</h3>
+<p align="center">
+<img src="Images/11.jpg" alt="Unity Recognition Effect" width="750" height="500" >
+<br />
 
 
 ### Notes

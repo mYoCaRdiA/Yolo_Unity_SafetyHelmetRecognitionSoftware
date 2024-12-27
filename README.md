@@ -68,12 +68,11 @@ Main：Yolo推理核心代码。<br />
  
 ### 注意事项
 
-NMS 以消除冗余框
-
-
-
-
-
+1.相机画面渲染分辨率为 640*640；<br />
+2.使用 NMS算法 以消除冗余框，可通过配置confThreshold和nmsThreshold参数控制抑制效果；<br />
+3.textureProviderType参数无需手动设置；<br />
+4.sentis的张量维度顺序为NHWC，Barracuda的顺序为NCHW，更改引擎时需要注意；<br />
+5.输出结果列表根据置信度降序排序；<br />
 
 ### 版本控制
 

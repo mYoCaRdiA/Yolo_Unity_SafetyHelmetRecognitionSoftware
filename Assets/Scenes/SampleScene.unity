@@ -566,7 +566,7 @@ MonoBehaviour:
   confThreshold: 0.8
   nmsThreshold: 0.7
   group_id_list:
-  - hhadmin_123
+  - 
   yoloCameraImageMask: {fileID: 721195961}
   textureProviderType: 0
   textureProvider:

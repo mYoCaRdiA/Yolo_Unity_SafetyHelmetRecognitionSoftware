@@ -14,7 +14,7 @@ using UnityEngine.Networking;
 using System.Net.Http;
 using System.IO;
 
-public class Test : MonoBehaviour
+public class Face : MonoBehaviour
 {
     public RawImage detect;
     public ModelAsset modelAsset;
@@ -53,14 +53,14 @@ public class Test : MonoBehaviour
         Predict(texture);
         yoloCameraImage.texture = texture;
 
-        
+
         //yoloCameraImage.transform.localScale = Vector3.one;
         //Destroy(texture);
     }
-    
+
     // 清除已有的框
 
-    
+
     public void Predict(Texture camImage) //我这里使用的是摄像头图像，你也可以用普通图片。
     {
 
@@ -76,14 +76,13 @@ public class Test : MonoBehaviour
         output0.MakeReadable(); //从GPU中取出数据，经过这一步之后就可以读取output0中的数据了
         PostProcess(output0, confThreshold, nmsThreshold);
         inputImage.Dispose();
-        
+
         output0.Dispose();
     }
     void PostProcess(TensorFloat outputTensor, float confThreshold, float nmsThreshold)
     {
         int numDetections = outputTensor.shape[2]; // 8400 个检测框
 
-        Debug.Log(outputTensor.shape);
         for (int i = 0; i < numDetections; i++)
         {
             float confidence = outputTensor[0, 4, i]; // 第5个值是置信度
@@ -96,7 +95,7 @@ public class Test : MonoBehaviour
                 float yCenter = outputTensor[0, 1, i];
                 float width = outputTensor[0, 2, i];
                 float height = outputTensor[0, 3, i];
-
+                Debug.Log(xCenter+"、"+yCenter+ "、" + width+ "、" + height);
                 //// 转换为 (x_min, y_min, x_max, y_max)
                 //float xMin = xCenter - width / 2;
                 //float yMin = yCenter - height / 2;
@@ -108,6 +107,7 @@ public class Test : MonoBehaviour
                 xMin = xMin < 0 ? 0 : xMin;
                 yMin = yMin < 0 ? 0 : yMin;
                 var rect = new Rect(xMin, yMin, width, height);
+                Debug.Log(rect);
                 rect.xMax = rect.xMax > width ? width : rect.xMax;
                 rect.yMax = rect.yMax > height ? height : rect.yMax;
                 // 创建检测框
@@ -125,21 +125,21 @@ public class Test : MonoBehaviour
                     ResultBox result = new ResultBox(rect, confidence, false);
                     boxesss.Add(result);
                 }
-
+                
                 //BoundingBoxs.Add(box);
             }
         }
 
         // 执行 NMS 以消除冗余框
-        List<ResultBox> finalBoxes = NonMaxSuppression(boxesss, nmsThreshold);
-        ShowBox(finalBoxes);
-        //if (finalBoxes.Count != 0)
+        //List<ResultBox> finalBoxes = NonMaxSuppression(boxesss, nmsThreshold);
+        //ShowBox(finalBoxes);
+        //if (boxesss.Count != 0)
         //{
-        //    StartCoroutine(SearchDetectAsync(SliceTexture2DToBase64(texture, finalBoxes[0].rect)));
+        //    StartCoroutine(SearchDetectAsync(SliceTexture2DToBase64(texture, boxesss[0].rect)));
 
         //}
     }
-
+    
     // 非极大值抑制
     List<ResultBox> NonMaxSuppression(List<ResultBox> boxes, float nmsThreshold)
     {
@@ -174,7 +174,7 @@ public class Test : MonoBehaviour
         return intersection / union;
     }
 
-    
+
     public RectTransform canvasRect; // Canvas 的 RectTransform
     public BoxPrafab boxPrefab;          // 预制框 Image
     private List<BoxPrafab> boxessss = new List<BoxPrafab>();
@@ -211,7 +211,7 @@ public class Test : MonoBehaviour
             box1.transform.localPosition = leftUpLocalPos;
             boxessss.Add(box1);
         }
-        
+
     }
 
 
@@ -328,11 +328,14 @@ public class Test : MonoBehaviour
     }
     public string SliceTexture2DToBase64(Texture2D originalTexture, Rect rect)
     {
-        
-        Debug.Log("------" + originalTexture.height+originalTexture.width);
+
+        Debug.Log("------" + originalTexture.height + originalTexture.width);
         Debug.Log(rect);
+        
+        rect.width = rect.width*3f;
+        rect.height = rect.height * 3f;
         rect.width = Math.Abs(rect.width);
-        rect.height = Math.Abs(rect.height);
+        rect.height= Math.Abs(rect.height);
         // 调整Rect的y坐标，以确保截取的位置正确
         // Unity的Texture2D坐标原点在左下角，但在很多情况下（如UI）我们习惯于以左上角为原点
         rect.y = originalTexture.height - rect.y - rect.height;
@@ -355,11 +358,11 @@ public class Test : MonoBehaviour
         newTexture.Apply();
         if (newTexture != null)
         {
-            
+
             Debug.Log(newTexture.isReadable);
             // 将新Texture2D转换为字节流，这里以PNG格式为例
             byte[] bytes = newTexture.EncodeToPNG();
-            File.WriteAllBytes("C:\\Users\\Administrator\\Desktop\\"+ rect.x+".png", bytes);
+            File.WriteAllBytes("C:\\Users\\Administrator\\Desktop\\" + rect.x + ".png", bytes);
             // 销毁临时创建的Texture2D对象
             Destroy(newTexture);
 
@@ -378,93 +381,7 @@ public class Test : MonoBehaviour
 
 
     }
-    public static class AccessToken
-    {
-        //public static string apiKey = "ek4stEhxjdaMkou979ejpDPh";              //填写自己的apiKey(请改成自己的)
-        //public static string secretKey = "hcGrtORkKk4UP14HcPAxyMDG0X8Ic1Ca";         //填写自己的secretKey
-
-        public static string apiKey = "UcrLfTDRQ0nHSnW7Iz7N8QYh";              //填写自己的apiKey(请改成自己的)
-        public static string secretKey = "M4G1kPD0vYgj9Tt8NahytmFCCEcGr1hK";         //填写自己的secretKey
-
-        public static String getAccessToken()
-        {
-            String authHost = "https://aip.baidubce.com/oauth/2.0/token";
-            HttpClient client = new HttpClient();
-            List<KeyValuePair<String, String>> paraList = new List<KeyValuePair<string, string>>();
-            paraList.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
-            paraList.Add(new KeyValuePair<string, string>("client_id", apiKey));
-            paraList.Add(new KeyValuePair<string, string>("client_secret", secretKey));
-
-            HttpResponseMessage response = client.PostAsync(authHost, new FormUrlEncodedContent(paraList)).Result;
-            String result = response.Content.ReadAsStringAsync().Result;
-            // Debug.Log(result);
-            string[] tokens = result.Split(new string[] { "\"access_token\":\"", "\",\"scope" }, StringSplitOptions.RemoveEmptyEntries);
-            result = tokens[1];
-            return result;
-        }
-    }
-
-    public IEnumerator SearchDetectAsync(string Base64Image, Action<FaceSearchInfo> callback = null)
-    {
-
-        string host = "https://aip.baidubce.com/rest/2.0/face/v3/search?access_token=" + AccessToken.getAccessToken();
-        Encoding encoding = Encoding.Default;
-
-        // 构建请求数据
-        string groupIdListString = "";
-        if (group_id_list.Count != 0 && group_id_list.Count <= 10)
-        {
-            for (int i = 0; i < group_id_list.Count; i++)
-            {
-                groupIdListString += group_id_list[i];
-                if (i != group_id_list.Count - 1)
-                {
-                    groupIdListString += ",";
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("搜索失败\n人脸库数量不对!\n请重新搜索");
-            callback?.Invoke(null);
-            yield break;
-        }
-
-        string requestData = "{\"image\":\"" + Base64Image + "\",\"image_type\":\"BASE64\",\"group_id_list\":\"" + groupIdListString + "\",\"quality_control\":\"LOW\",\"liveness_control\":\"NORMAL\"}";
-        byte[] requestDataBytes = encoding.GetBytes(requestData);
-
-        // 创建请求对象
-        using (UnityWebRequest request = new UnityWebRequest(host, "POST"))
-        {
-            request.uploadHandler = new UploadHandlerRaw(requestDataBytes);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            // 发送请求并等待响应
-            yield return request.SendWebRequest();
-
-            // 处理响应数据
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                Debug.Log("人脸搜索返回信息:" + request.downloadHandler.text);
-
-                FaceSearchInfo faceSearchInfo = JsonConvert.DeserializeObject<FaceSearchInfo>(request.downloadHandler.text);
-                if (faceSearchInfo.error_code == 0)
-                {
-                    StopAllCoroutines();
-                    Debug.Log("-------------------------------");
-                }
-                callback?.Invoke(faceSearchInfo);
-            }
-            else
-            {
-                Debug.LogError("人脸搜索请求失败: " + request.error);
-                callback?.Invoke(null);
-            }
-        } // 使用using语句确保资源被释放
-
-
-    }
+   
     public class FaceSearchInfo
     {
         /// <summary>

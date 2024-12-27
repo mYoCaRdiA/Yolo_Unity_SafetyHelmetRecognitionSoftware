@@ -1,48 +1,12 @@
 
 
-# ProjectName
-
-ProjectName and Description
-
-<!-- PROJECT SHIELDS -->
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-<!-- PROJECT LOGO -->
-<br />
-
-<p align="center">
-  <a href="https://github.com/shaojintian/Best_README_template/">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">"完美的"README模板</h3>
-  <p align="center">
-    一个"完美的"README模板去快速开始你的项目！
-    <br />
-    <a href="https://github.com/shaojintian/Best_README_template"><strong>探索本项目的文档 »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/shaojintian/Best_README_template">查看Demo</a>
-    ·
-    <a href="https://github.com/shaojintian/Best_README_template/issues">报告Bug</a>
-    ·
-    <a href="https://github.com/shaojintian/Best_README_template/issues">提出新特性</a>
-  </p>
-
-</p>
-
+# 基于Unity_Sentis的Yolo安全帽识别软件
 
  本篇README.md面向开发者
  
 ## 目录
 
-- [上手指南](#上手指南)
+- [简介](#简介)
   - [开发前的配置要求](#开发前的配置要求)
   - [安装步骤](#安装步骤)
 - [文件目录说明](#文件目录说明)
@@ -55,10 +19,9 @@ ProjectName and Description
 - [作者](#作者)
 - [鸣谢](#鸣谢)
 
-### 上手指南
+### 简介
 
-请将所有链接中的“shaojintian/Best_README_template”改为“your_github_name/your_repository”
-
+本项目基于Unity官方最新的 AI 模型本地推理引擎 "Sentis" ，完成对Yolo识别模型的本地推理，并输出推理结果显示识别框。项目内预留接口支持替换自己训练的识别任意物体的onnx模型，包括YoloV8和V5模型。需要注意的是，项目默认使用的是YoloV8模型，使用V5模型需替换推理引擎为Sentis的旧版本：Barracuda引擎。
 
 
 ###### 开发前的配置要求

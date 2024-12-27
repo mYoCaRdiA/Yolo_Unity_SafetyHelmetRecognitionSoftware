@@ -31,7 +31,7 @@ eg:
 
 ```
 Assets 
-├── Model
+├── Models
 ├── OtherAssets
 ├── Scenes
 ├── Scripts
@@ -40,8 +40,13 @@ Assets
 
 ```
 
-
 ### 目录说明
+
+Models：onnx模型文件夹；<br />
+OtherAssets：包括识别框的Shader和盒子预制件等；<br />
+Scenes：主场景文件夹（此项目仅有一个场景）；<br />
+TextureProvider：为Yolo推理器提供画面的脚本，包括了Web端、安卓端、iOS端画面提供脚本；<br />
+Main：Yolo推理核心代码。<br />
 
 ### 项目截图
 
@@ -60,6 +65,7 @@ Assets
 <p align="center">
 <img src="Images/11.jpg" alt="Unity识别效果" width="750" height="500" >
 <br />
+ 
 ### 注意事项
 
 NMS 以消除冗余框
@@ -75,9 +81,8 @@ NMS 以消除冗余框
 
 ### 开发者
 
-xxx@xxxx
+Github : mYoCaRdiA
 
-知乎:xxxx  &ensp; qq:xxxxxx    
 
 
 

@@ -1,4 +1,4 @@
-
+#The English version is below the page
 # 基于Unity_Sentis的Yolo安全帽识别软件
 
  本篇README.md面向开发者
@@ -83,7 +83,66 @@ Main：Yolo推理核心代码。<br />
 Github : mYoCaRdiA
 
 
+# Yolo safety helmet recognition software based on Unity_Sentis
+This README.md is aimed at developers
 
+## Directory
+- [Introduction](#Introduction)
+- [Configurationrequirements](#Configurationrequirements)
+- [Filedirectory](#Filedirectory)
+- [CatalogDescription](#CatalogDescription)
+- [Screenshotoftheproject](#Screenshotoftheproject)
+- [Notes](#Notes)
+- [Versioncontrol](#Versioncontrol)
+- [Developers](#Developers)
+
+### Introduction
+This project is based on Unity's latest official AI model local inference engine "Sentis" to complete the local inference of Yolo recognition model, and output the inference results to display the recognition box. The in-project reserved interface supports replacing self-trained onnx models for recognizing arbitrary objects, including YoloV8 and V5 models. It should be noted that the project uses the YoloV8 model by default, and the V5 model needs to replace the old version of Sentis: Barracuda engine. The project supports porting web, Android and iOS.
+
+### Configurationrequirements
+
+Unity 2021.3.15f1 (using version c1 may cause memory leaks in TextureProvider script);
+Sentis 1.2.0-exp.2 (installed using UnityPackageManager).
+
+### Filedirectory
+eg:
+
+```
+Assets 
+├── Models
+├── OtherAssets
+├── Scenes
+├── Scripts
+  ├── TextureProvider
+  └── Main
+
+```
+
+### CatalogDescription
+
+Models: onnx models folder
+OtherAssets: includes shaders for identifying boxes and box preforms, etc.
+Scenes: the main scene folder (this project has only one scene)
+TextureProvider: A script that provides a screen for the Yolo reasoner, including Web, Android, and iOS screen scripts.
+Main: The Yolo inference core code
+
+### Screenshotoftheproject
+The training results of the safety helmet recognition model are shown below (using the open source safety helmet training set and validation set).
+
+
+
+### Notes
+1. The camera rendering resolution is 640*640;
+2. Use the NMS algorithm to eliminate redundant boxes, and configure the confThreshold and nmsThreshold parameters to control the suppression effect.
+3. The textureProviderType parameter does not need to be set manually;
+4. The tensor dimension order of sentis is NHWC, and the order of Barracuda is NCHW, so pay attention when changing the engine;
+The output list is sorted by confidence in descending order.
+
+### Versioncontrol
+The project uses Git for version management. You can see the currently available version in the repository.
+
+### Developers
+Github : mYoCaRdiA
 
 
 

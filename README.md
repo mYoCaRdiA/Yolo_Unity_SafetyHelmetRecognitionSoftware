@@ -3,7 +3,7 @@
 
 <br />
 <p align="center">
-<img src="Images/logo.jpg" alt="" width="500" height="300">
+<img src="Images/logo.png" alt="" width="500" height="300">
 
  本篇README.md面向开发者
  

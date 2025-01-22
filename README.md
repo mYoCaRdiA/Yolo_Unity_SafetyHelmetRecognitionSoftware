@@ -1,6 +1,10 @@
 #The English version is below the page
 # 基于Unity_Sentis的Yolo安全帽识别软件
 
+<br />
+<p align="center">
+<img src="Images/logo.jpg" alt="" width="500" height="300">
+
  本篇README.md面向开发者
  
 ## 目录
